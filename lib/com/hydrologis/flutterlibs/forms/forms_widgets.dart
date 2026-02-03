@@ -798,6 +798,16 @@ Tuple2<ListTile, bool>? getWidget(
             ),
             false);
       }
+    case TYPE_IMAGEGRID:
+      {
+        return Tuple2(
+            ListTile(
+              leading: icon,
+              title: ImageGridWidget(
+                  label, ValueKey(widgetKey), formItem, itemReadonly),
+            ),
+            false);
+      }
 //      case TYPE_MAP:
 //        if (value.length() <= 0) {
 //          // need to read image

@@ -177,6 +177,7 @@ abstract class AFormWidget {
       TYPE_PICTURES,
       TYPE_IMAGELIB,
       TYPE_SKETCH,
+      TYPE_IMAGEGRID,
       TYPE_POINT,
       // TYPE_MULTIPOINT,
       TYPE_LINESTRING,
@@ -273,6 +274,9 @@ abstract class AFormWidget {
             fromGallery: true);
       case TYPE_SKETCH:
         return DrawingWidget(
+            context, widgetKey, formItem, presentationMode, formHelper);
+      case TYPE_IMAGEGRID:
+        return ImageGridFormWidget(
             context, widgetKey, formItem, presentationMode, formHelper);
 //      case TYPE_MAP:
 //        if (value.length() <= 0) {
