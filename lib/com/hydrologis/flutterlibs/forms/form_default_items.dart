@@ -469,6 +469,23 @@ const Map<String, Map<String, String>> DEFAULT_FORM_ITEMS = {
       "type": "$TYPE_SKETCH"
     }"""
   },
+  TYPE_IMAGEGRID: {
+    "an image grid": """
+    {
+      "key": "imagegrid_key",
+      "label": "Select an image",
+      "prompt": "Which option is correct?",
+      "columns": 3,
+      "multi": false,
+      "images": [
+        { "id": "opt1", "url": "https://example.org/images/opt1.png" },
+        { "id": "opt2", "url": "https://example.org/images/opt2.png" },
+        { "id": "opt3", "base64": "iVBORw0KGgo..." }
+      ],
+      "value": "",
+      "type": "$TYPE_IMAGEGRID"
+    }"""
+  },
   TYPE_POINT: {
     "an existing point with style": """
     {
