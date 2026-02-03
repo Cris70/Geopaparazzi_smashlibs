@@ -168,6 +168,7 @@ part 'com/hydrologis/flutterlibs/forms/widgets/dynamicstring_widget.dart';
 part 'com/hydrologis/flutterlibs/forms/widgets/geometry_widget.dart';
 part 'com/hydrologis/flutterlibs/forms/widgets/multicombo_widget.dart';
 part 'com/hydrologis/flutterlibs/forms/widgets/pictures_widget.dart';
+part 'com/hydrologis/flutterlibs/forms/widgets/imagegrid_widget.dart';
 part 'com/hydrologis/flutterlibs/forms/widgets/sketches_widget.dart';
 part 'com/hydrologis/flutterlibs/forms/widgets/timepicker_widget.dart';
 part 'com/hydrologis/flutterlibs/forms/widgets/tapcounter_widget.dart';
@@ -188,6 +189,7 @@ part 'com/hydrologis/flutterlibs/forms/builderitems/autocomplete_stringcombo_ite
 part 'com/hydrologis/flutterlibs/forms/builderitems/connected_stringcombo_item.dart';
 part 'com/hydrologis/flutterlibs/forms/builderitems/geometric_items.dart';
 part 'com/hydrologis/flutterlibs/forms/builderitems/graphic_items.dart';
+part 'com/hydrologis/flutterlibs/forms/builderitems/imagegrid_item.dart';
 part 'com/hydrologis/flutterlibs/forms/builderitems/multistringcombo_item.dart';
 part 'com/hydrologis/flutterlibs/forms/builderitems/multiintcombo_item.dart';
 part 'com/hydrologis/flutterlibs/forms/builderitems/stringwheelslider_item.dart';

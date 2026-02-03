@@ -90,6 +90,9 @@ const String TYPE_IMAGELIB = "imagelib";
 /// Type for pictures element.
 const String TYPE_SKETCH = "sketch";
 
+/// Type for image grid selection element.
+const String TYPE_IMAGEGRID = "imagegrid";
+
 /// Type for map element.
 const String TYPE_MAP = "map";
 
@@ -141,6 +144,10 @@ const String TAG_OPACITY = "opacity";
 const String TAG_STYLE = "style";
 const String TAG_URL = "url";
 const String TAG_IS_URL_ITEM = "isurlitem";
+const String TAG_PROMPT = "prompt";
+const String TAG_COLUMNS = "columns";
+const String TAG_MULTI = "multi";
+const String TAG_IMAGES = "images";
 
 const IMAGE_ID_SEPARATOR = ";";
 
