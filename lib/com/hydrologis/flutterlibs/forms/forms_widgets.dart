@@ -606,7 +606,7 @@ Tuple2<ListTile, bool>? getWidget(
             ListTile(
               leading: icon,
               title: ComboboxWidget<String>(ValueKey(widgetKey), formItem,
-                  label, presentationMode, constraints),
+                  label, presentationMode, constraints, formItem.isUrlItem, formHelper),
             ),
             false);
       }
@@ -616,7 +616,7 @@ Tuple2<ListTile, bool>? getWidget(
             ListTile(
               leading: icon,
               title: ComboboxWidget<int>(ValueKey(widgetKey), formItem, label,
-                  presentationMode, constraints),
+                  presentationMode, constraints, formItem.isUrlItem, formHelper),
             ),
             false);
       }
@@ -635,8 +635,8 @@ Tuple2<ListTile, bool>? getWidget(
         return Tuple2(
             ListTile(
               leading: icon,
-              title: AutocompleteStringComboWidget(
-                  ValueKey(widgetKey), formItem, label, itemReadonly),
+              title: AutocompleteComboWidget(
+                  ValueKey(widgetKey), formItem, label, presentationMode, constraints, formItem.isUrlItem, formHelper),
             ),
             false);
       }
@@ -661,7 +661,7 @@ Tuple2<ListTile, bool>? getWidget(
             ListTile(
               leading: icon,
               title: ConnectedComboboxWidget(
-                  ValueKey(widgetKey), formItem, label, itemReadonly),
+                  ValueKey(widgetKey), formItem, label, itemReadonly, formItem.isUrlItem),
             ),
             false);
       }
@@ -671,7 +671,7 @@ Tuple2<ListTile, bool>? getWidget(
             ListTile(
               leading: icon,
               title: AutocompleteStringConnectedComboboxWidget(
-                  ValueKey(widgetKey), formItem, label, itemReadonly),
+                  ValueKey(widgetKey), formItem, label, itemReadonly, formItem.isUrlItem),
             ),
             false);
       }
@@ -697,7 +697,7 @@ Tuple2<ListTile, bool>? getWidget(
             ListTile(
               leading: icon,
               title: MultiComboWidget<String>(ValueKey(widgetKey), formItem,
-                  label, itemReadonly, presentationMode),
+                  label, itemReadonly, presentationMode, formItem.isUrlItem, formHelper),
             ),
             false);
       }
@@ -707,7 +707,7 @@ Tuple2<ListTile, bool>? getWidget(
             ListTile(
               leading: icon,
               title: MultiComboWidget<int>(ValueKey(widgetKey), formItem, label,
-                  itemReadonly, presentationMode),
+                  itemReadonly, presentationMode, formItem.isUrlItem, formHelper),
             ),
             false);
       }

@@ -45,6 +45,8 @@ const String TYPE_INTCOMBO = "intcombo";
 /// Type for wheel sliders.
 const String TYPE_INTWHEELSLIDER = "intwheelslider";
 const String TYPE_STRINGWHEELSLIDER = "stringwheelslider";
+const String TYPE_TAPCOUNTER = "tapcounter";
+
 
 /// Type for an autocomplete combo.
 const String TYPE_AUTOCOMPLETESTRINGCOMBO = "autocompletestringcombo";
@@ -1299,6 +1301,18 @@ class SmashFormItem {
   bool isGeometric = false;
 
   late Map<String, dynamic> map;
+
+  bool get isUrlItem {
+    var url = TagsManager.getComboUrl(map);
+    if (url != null && url.toString().trim().isNotEmpty) {
+      return true;
+    }
+    if (map.containsKey(TAG_URL)) {
+      var raw = map[TAG_URL];
+      return raw != null && raw.toString().trim().isNotEmpty;
+    }
+    return false;
+  }
 
   SmashFormItem(Map<String, dynamic> map) {
     this.map = map;
