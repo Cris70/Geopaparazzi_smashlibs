@@ -222,6 +222,11 @@ abstract class AFormhelper {
     }
   }
 
+  /// Map of form data used to satisfy url placeholders in combo widgets.
+  Map<String, dynamic> getRequiredFormUrlItems() {
+    return dataUsed;
+  }
+
   /// get the initial data map, changed by the interaction with the form.
   Map<String, dynamic> getFormChangedData() {
     var section = getSection();
