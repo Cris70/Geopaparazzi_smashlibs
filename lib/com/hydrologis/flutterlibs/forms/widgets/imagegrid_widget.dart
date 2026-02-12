@@ -166,7 +166,12 @@ class ImageGridWidgetState extends State<ImageGridWidget> {
       }
     }
     if (entry.url != null && entry.url!.isNotEmpty) {
-      return Image.network(entry.url!, fit: BoxFit.cover);
+      var url = _resolveImageUrl(entry.url!);
+      return Image.network(
+        url,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => _buildBrokenImage(),
+      );
     }
     return _buildBrokenImage();
   }
@@ -214,6 +219,21 @@ class ImageGridWidgetState extends State<ImageGridWidget> {
   bool _getMulti() {
     var multi = widget._formItem.getMapItem(TAG_MULTI);
     return FormUtilities.isTrue(multi);
+  }
+
+  String _resolveImageUrl(String url) {
+    if (!kIsWeb) {
+      return url;
+    }
+    Uri? uri = Uri.tryParse(url);
+    if (uri == null || !uri.hasScheme) {
+      return url;
+    }
+    if (uri.host == Uri.base.host) {
+      return url;
+    }
+    var proxyBase = Uri.base.resolve("/api/imageproxy/");
+    return proxyBase.replace(queryParameters: {"url": url}).toString();
   }
 
   List<_ImageGridEntry> _getEntries() {
