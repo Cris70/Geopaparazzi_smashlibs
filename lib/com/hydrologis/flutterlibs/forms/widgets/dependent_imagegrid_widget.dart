@@ -74,7 +74,8 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
     }
 
     if (selectedFromValue.isNotEmpty &&
-        !selectedFromValue.every((id) => entries.any((entry) => entry.id == id))) {
+        !selectedFromValue
+            .every((id) => entries.any((entry) => entry.id == id))) {
       missingSelectedIds = selectedFromValue
           .where((id) => !entries.any((entry) => entry.id == id))
           .toSet();
@@ -91,15 +92,15 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
           .toList();
     }
 
-    List<_ImageGridEntry> matchedEntries = entries
-        .where((entry) => selectedFromValue.contains(entry.id))
-        .toList();
+    List<_ImageGridEntry> matchedEntries =
+        entries.where((entry) => selectedFromValue.contains(entry.id)).toList();
 
     if (!_setEquals(selectedFromValue, _selected)) {
       _selected = selectedFromValue;
     }
 
-    bool hasParent = parentValue.isNotEmpty || (widget._isReadOnly && entries.isNotEmpty);
+    bool hasParent =
+        parentValue.isNotEmpty || (widget._isReadOnly && entries.isNotEmpty);
     bool hasItems = entries.isNotEmpty;
     bool isEnabled = !widget._isReadOnly && hasParent && hasItems;
 
@@ -115,7 +116,8 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
       ));
     }
 
-    bool mandatoryUnmet = isMandatory && hasParent && hasItems && _selected.isEmpty;
+    bool mandatoryUnmet =
+        isMandatory && hasParent && hasItems && _selected.isEmpty;
     if (mandatoryUnmet &&
         !widget._isReadOnly &&
         !widget._presentationMode.isReadOnly) {
@@ -128,7 +130,8 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
 
     Widget body;
     if (widget._isReadOnly && selectedFromValue.isEmpty) {
-      body = SmashUI.normalText("Not selected.", color: SmashColors.disabledText);
+      body =
+          SmashUI.normalText("Not selected.", color: SmashColors.disabledText);
     } else if (!hasParent) {
       body = SmashUI.normalText(_getDisabledHint(parentKey),
           color: SmashColors.disabledText);
@@ -177,8 +180,8 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
             children: header,
           ),
         if (_debugEnabled)
-          _buildDebugPanel(
-              parentKey, parentValue, selectedFromValue, entries, matchedEntries,
+          _buildDebugPanel(parentKey, parentValue, selectedFromValue, entries,
+              matchedEntries,
               missingSelectedIds: missingSelectedIds),
         body,
       ],
@@ -283,7 +286,7 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
                     color: SmashColors.mainBackground,
                   ),
                 ),
-            ),
+              ),
           ],
         ),
       ),
@@ -439,6 +442,12 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
       return url;
     }
     Uri? uri = Uri.tryParse(url);
+    if (_isFuelMappBundledAsset(uri, url)) {
+      var fileName = uri?.pathSegments.last ?? url.split("/").last;
+      return Uri.base
+          .resolve("/static/imagegrid_assets/fuel/prometheus/$fileName")
+          .toString();
+    }
     if (uri == null || !uri.hasScheme) {
       return url;
     }
@@ -447,6 +456,16 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
     }
     var proxyBase = Uri.base.resolve("/api/imageproxy/");
     return proxyBase.replace(queryParameters: {"url": url}).toString();
+  }
+
+  bool _isFuelMappBundledAsset(Uri? uri, String url) {
+    var pathSegments = uri?.pathSegments;
+    if (pathSegments == null || pathSegments.length != 2) {
+      return false;
+    }
+    return !url.contains("://") &&
+        pathSegments.first == "assets" &&
+        pathSegments.last.toLowerCase().endsWith(".png");
   }
 
   String _getParentValue(String parentKey, FormUrlItemsState urlItemState) {
@@ -519,7 +538,8 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
         var label = item["label"]?.toString() ?? id;
         var url = item["url"]?.toString() ?? item[TAG_URL]?.toString();
         var base64 = item["base64"]?.toString();
-        entries.add(_ImageGridEntry(id, label: label, url: url, base64: base64));
+        entries
+            .add(_ImageGridEntry(id, label: label, url: url, base64: base64));
       }
     }
     return entries;
@@ -535,8 +555,8 @@ class _DependentImageGridState extends State<DependentImageGridWidget> {
       if (entries.isEmpty) {
         continue;
       }
-      bool allContained =
-          selectedIds.every((selectedId) => entries.any((e) => e.id == selectedId));
+      bool allContained = selectedIds
+          .every((selectedId) => entries.any((e) => e.id == selectedId));
       if (allContained) {
         return entries;
       }

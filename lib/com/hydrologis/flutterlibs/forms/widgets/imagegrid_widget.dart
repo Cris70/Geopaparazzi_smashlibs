@@ -132,12 +132,11 @@ class ImageGridWidgetState extends State<ImageGridWidget> {
     );
   }
 
-  Widget _buildDebugPanel(Set<String> selectedFromValue,
-      List<_ImageGridEntry> entries,
+  Widget _buildDebugPanel(
+      Set<String> selectedFromValue, List<_ImageGridEntry> entries,
       {Set<String>? missingSelectedIds}) {
-    List<_ImageGridEntry> matchedEntries = entries
-        .where((entry) => selectedFromValue.contains(entry.id))
-        .toList();
+    List<_ImageGridEntry> matchedEntries =
+        entries.where((entry) => selectedFromValue.contains(entry.id)).toList();
     String lines = [
       "IMAGEGRID_DEBUG",
       "type=imagegrid",
@@ -387,6 +386,12 @@ class ImageGridWidgetState extends State<ImageGridWidget> {
       return url;
     }
     Uri? uri = Uri.tryParse(url);
+    if (_isFuelMappBundledAsset(uri, url)) {
+      var fileName = uri?.pathSegments.last ?? url.split("/").last;
+      return Uri.base
+          .resolve("/static/imagegrid_assets/fuel/prometheus/$fileName")
+          .toString();
+    }
     if (uri == null || !uri.hasScheme) {
       return url;
     }
@@ -395,6 +400,16 @@ class ImageGridWidgetState extends State<ImageGridWidget> {
     }
     var proxyBase = Uri.base.resolve("/api/imageproxy/");
     return proxyBase.replace(queryParameters: {"url": url}).toString();
+  }
+
+  bool _isFuelMappBundledAsset(Uri? uri, String url) {
+    var pathSegments = uri?.pathSegments;
+    if (pathSegments == null || pathSegments.length != 2) {
+      return false;
+    }
+    return !url.contains("://") &&
+        pathSegments.first == "assets" &&
+        pathSegments.last.toLowerCase().endsWith(".png");
   }
 
   List<_ImageGridEntry> _getEntries() {
@@ -411,7 +426,8 @@ class ImageGridWidgetState extends State<ImageGridWidget> {
         var label = item["label"]?.toString() ?? id;
         var url = item["url"]?.toString();
         var base64 = item["base64"]?.toString();
-        entries.add(_ImageGridEntry(id, label: label, url: url, base64: base64));
+        entries
+            .add(_ImageGridEntry(id, label: label, url: url, base64: base64));
       }
     }
     return entries;
